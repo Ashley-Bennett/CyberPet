@@ -1,0 +1,53 @@
+#gridContainer {
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-rows: auto;
+    grid-template-areas:
+    ". get title title go ."
+    "feed pet pet pet pet play"
+    "drink pet pet pet pet vet"
+    ". hunger thirst happiness health .";
+}
+
+#pet {
+    grid-area: pet;
+}
+
+#health {
+    grid-area: health;
+}
+
+#thirst {
+    grid-area: thirst;
+}
+
+#happiness {
+    grid-area: happiness;
+}
+
+#hunger {
+    grid-area: hunger;
+}
+
+#play {
+    grid-area: play;
+}
+
+#vet {
+    grid-area: vet;
+}
+
+#feed {
+    grid-area: feed;
+}
+
+#drink {
+    grid-area: drink;
+}
+
+#get_button {
+    grid-area: get;
+}
+#start_button {
+    grid-area: go;
+}
