@@ -31,6 +31,7 @@ class cat extends pet {
     this.START_HUNGER = 60;
     this.START_THIRST = 60;
     this.PET = "Cat";
+    this.MAX_HAPPINESS = Math.floor(this.HAPPINESS * 1.1)
   }
 }
 
@@ -43,6 +44,7 @@ class rabbit extends pet {
     this.START_HUNGER = 45;
     this.START_THIRST = 45;
     this.PET = "Rabbit";
+    this.MAX_HAPPINESS = Math.floor(this.HAPPINESS * 0.9)
   }
 }
 
@@ -112,6 +114,7 @@ let happinessStatus = "Your pet is happy";
 let hungerStatus = "Your pet is full";
 let thirstStatus = "Your pet is not thirsty";
 let healthStatus = "Your pet is healthy";
+let quit = 0
 
 //losing happiness
 const losingHappiness = () => {
@@ -136,7 +139,7 @@ const losingHappiness = () => {
 //playing
 const play = () => {
   if (newPet.HAPPINESS > newPet.MAX_HAPPINESS) {
-    console.log("Your dog is already happy");
+    console.log("Your pet is already happy");
     return;
   } else {
     newPet.HAPPINESS += 20;
@@ -237,21 +240,21 @@ const time = () => {
   console.log("...");
 };
 
-const quit = () => {
-  newPet.HEALTH -= 11;
-  return;
-};
+// const quit = () => {
+//   // newPet.HEALTH -= 11;
+//   return quit = 1;
+// };
 
 const choose = () => {
-  let choice = prompt("", "");
+  let choice = prompt("What do you want to do? \n 1. Check status of your pet \n 2. Play with your pet \n 3. Feed your pet \n 4. Give your pet a drink \n 5. Go to the vet \n 6. Quit", "");
   if (choice == 1) {
     console.log(happinessStatus, hungerStatus, thirstStatus, healthStatus);
-    //console.log(
-    //newPet.HAPPINESS,
-    //newPet.START_HUNGER,
-    //newPet.START_THIRST,
-    //newPet.HEALTH
-    //);
+    console.log(
+    newPet.HAPPINESS,
+    newPet.START_HUNGER,
+    newPet.START_THIRST,
+    newPet.HEALTH
+    );
   } else if (choice == 2) {
     console.log("you have played with your pet");
     return play();
@@ -266,42 +269,45 @@ const choose = () => {
     return visitVet();
   } else if (choice == 6) {
     console.log("Quitting...");
-    return quit();
+    return quit = 1;
   }
 };
 
-//logging
-const action = () => {
-  //console.log (happinessStatus,newPet.HEALTH, newPet.HAPPINESS)
-  console.log(
-    "What do you want to do? \n 1. Check status of your pet \n 2. Play with your pet \n 3. Feed your pet \n 4. Give your pet a drink \n 5. Go to the vet \n 6. Quit"
-  );
 
-  setTimeout(choose, 50);
-};
 
-const life = (pet) => {
-  setInterval(healthCheck, 1000);
-  setInterval(time, 1000);
-  setInterval(action, 5000);
-  setInterval(losingHappiness, 4000);
-  setInterval(hungry, 7000);
-  setInterval(thirst, 3000);
+const life = () => {
+  let healthCheckInt = setInterval(healthCheck, 1000);
+  let timeInt = setInterval(time, 1000);
+  let chooseInt = setInterval(choose, 5000);
+  let losingHappinessInt = setInterval(losingHappiness, 4000);
+  let hungryInt = setInterval(hungry, 7000);
+  let thirstInt = setInterval(thirst, 3000);
+  
+
+  const quitting = () => {
+    if(quit){
+      clearInterval(healthCheckInt);
+      clearInterval(timeInt);
+      clearInterval(chooseInt);
+      clearInterval(losingHappinessInt);
+      clearInterval(hungryInt);
+      clearInterval(thirstInt);
+      clearInterval(gameQuit);
+    }
+  }
+  let gameQuit = setInterval(quitting, 2000)
+  
 };
 
 // life();
 
 getButton.addEventListener("click", () => {
   console.log("start")
-
   return newPet = typePet()
-  // return 
-  // life()
-
 })
 
 startButton.addEventListener("click", () => {
-  if(newPet){
+  if (newPet) {
     life()
   } else {
     alert("You need to get a pet")
