@@ -46,75 +46,66 @@ class rabbit extends pet {
   }
 }
 
+// Declare page elements
 let startButton = document.getElementById("start_button")
 
-//let nameOfPet = prompt("name pet")
-// let newDog =
-
-// console.log("Start");
-
+let newPet
 
 
 const getDog = () => {
   let name = prompt("What do you want to name your dog?", "");
-  // newDog.NAME = name;
-  alert(`You now have a dog named ${name}`)
-  console.log(`You now have a Dog named ${name}`);
-  return new dog(name);
+  if (name) {
+    alert(`You now have a dog named ${name}`)
+    let newPet = new dog(`${name}`)
+    return (newPet)
+  } else {
+    alert("You must name your pet")
+    getDog()
+  }
 };
 
 const getCat = () => {
   let name = prompt("What do you want to name your cat?", "");
-  //let newPet = new cat(name);
-  alert(`You now have a cat named ${name}`)
-  console.log(`You now have a cat named ${name}`);
-  return new cat(name);
+  if (name) {
+    alert(`You now have a cat named ${name}`)
+    let newPet = new cat(`${name}`)
+    return (newPet)
+  } else {
+    alert("You must name your pet")
+    getCat()
+  }
 };
 
 const getRabbit = () => {
   let name = prompt("What do you want to name your rabbit?", "");
-  //let newPet = new rabbit(name);
-  alert(`You now have a rabbit named ${name}`)
-  console.log(`You now have a rabbit named ${name}`);
-  return new rabbit(name);
+  if (name) {
+    alert(`You now have a rabbit named ${name}`)
+    let newPet = new rabbit(`${name}`)
+    return (newPet)
+  } else {
+    alert("You must name your pet")
+    getRabbit()
+  }
 };
 
 const typePet = () => {
   let petType = prompt("What kind of pet do you want? \n 1. Dog \n 2. Cat \n 3. Rabbit", "")
   switch (petType) {
     case "1":
-      getDog();
-      break
+      return getDog()
     case "2":
-      getCat();
-      break
+      return getCat()
     case "3":
-      getRabbit();
-      break
+      return getRabbit();
     default:
       alert("Not an option")
       typePet();
   }
+
 };
 
 
 
-const getPet = () => {
-  typePet()
-};
-
-startButton.addEventListener("click", () => {
-  console.log("start")
-  getPet()
-})
-// getPet();
-
-//let newPet = getPet;
-
-//console.log(newPet)
-
-let newPet = new dog("Ash");
-//console.log(newPet)
 
 let happinessStatus = "Your pet is happy";
 let hungerStatus = "Your pet is full";
@@ -288,7 +279,8 @@ const action = () => {
   setTimeout(choose, 50);
 };
 
-const life = () => {
+const life = (pet) => {
+  let newPet = pet
   setInterval(healthCheck, 1000);
   setInterval(time, 1000);
   setInterval(action, 5000);
@@ -298,3 +290,12 @@ const life = () => {
 };
 
 // life();
+
+startButton.addEventListener("click", () => {
+  console.log("start")
+
+  let newPet = typePet()
+  console.log(newPet)
+  life(newPet)
+
+})
