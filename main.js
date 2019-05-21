@@ -47,6 +47,7 @@ class rabbit extends pet {
 }
 
 // Declare page elements
+let getButton = document.getElementById("get_button")
 let startButton = document.getElementById("start_button")
 
 let newPet
@@ -280,7 +281,6 @@ const action = () => {
 };
 
 const life = (pet) => {
-  let newPet = pet
   setInterval(healthCheck, 1000);
   setInterval(time, 1000);
   setInterval(action, 5000);
@@ -291,11 +291,19 @@ const life = (pet) => {
 
 // life();
 
-startButton.addEventListener("click", () => {
+getButton.addEventListener("click", () => {
   console.log("start")
 
-  let newPet = typePet()
-  console.log(newPet)
-  life(newPet)
+  return newPet = typePet()
+  // return 
+  // life()
 
+})
+
+startButton.addEventListener("click", () => {
+  if(newPet){
+    life()
+  } else {
+    alert("You need to get a pet")
+  }
 })
