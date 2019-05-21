@@ -1,7 +1,8 @@
 #gridContainer {
     display: grid;
     grid-template-columns: auto;
-    grid-auto-rows: auto;
+    grid-template-rows: 
+    100px 32.5vh 32.5vh 25vh;
     grid-template-areas:
     ". get title title go ."
     "feed pet pet pet pet play"
