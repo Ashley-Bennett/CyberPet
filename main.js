@@ -6,6 +6,10 @@ class pet {
     this.HUNGER = 100;
     this.THIRST = 100;
     this.HEALTH = 10;
+    this.HUNGER_STATUS = "red"
+    this.THIRST_STATUS = "green"
+    this.HAPPINESS_STATUS = "red"
+    this.HEALTH_STATUS = "red"
   }
 }
 
@@ -192,19 +196,19 @@ const thirst = () => {
   newPet.START_THIRST -= 3;
 
   if (newPet.START_THIRST > 80) {
-    THIRST_.className = ("green")
+    newPet.THIRST_STATUS = ("green")
     return (thirstStatus = "Your pet is not thirsty");
   } else if (newPet.START_THIRST <= 80 && newPet.START_THIRST > 60) {
-    THIRST_.className = ("yellow")
+    newPet.THIRST_STATUS = ("yellow")
     return (thirstStatus = "Your pet is parched");
   } else if (newPet.START_THIRST <= 60 && newPet.START_THIRST > 40) {
-    THIRST_.className = ("amber")
+    newPet.THIRST_STATUS = ("amber")
     return (thirstStatus = "Your pet is thirsty");
   } else if (newPet.START_THIRST <= 40 && newPet.START_THIRST > 20) {
-    THIRST_.className = ("orange")
+    newPet.THIRST_STATUS = ("orange")
     return (thirstStatus = "Your pet is dehydrated");
   } else if (newPet.START_THIRST <= 20 && newPet.START_THIRST > 0) {
-    THIRST_.className = ("red")
+    newPet.THIRST_STATUS = ("red")
     newPet.HEALTH--;
     return (thirstStatus = "Your pet is dying of dehydration");
   } else newPet.START_THIRST < 0;
@@ -288,15 +292,19 @@ const choose = () => {
   }
 };
 
+const update = () => {
+  THIRST_.className = (newPet.THIRST_STATUS)
+}
 
 
 const life = () => {
   let healthCheckInt = setInterval(healthCheck, 1000);
   let timeInt = setInterval(time, 1000);
-  let chooseInt = setInterval(choose, 5000);
+  // let chooseInt = setInterval(choose, 5000);
   let losingHappinessInt = setInterval(losingHappiness, 4000);
   let hungryInt = setInterval(hungry, 7000);
   let thirstInt = setInterval(thirst, 3000);
+  let updateInt = setInterval(update, 5000)
   
 
   const quitting = () => {
@@ -308,6 +316,7 @@ const life = () => {
       clearInterval(hungryInt);
       clearInterval(thirstInt);
       clearInterval(gameQuit);
+      clearInterval(updateInt)
     }
   }
   let gameQuit = setInterval(quitting, 2000)
