@@ -1,3 +1,23 @@
+.green {
+    color: #66B032;
+}
+
+.yellow {
+    color: #FEFE34
+}
+
+.amber {
+    color: #FEFE34
+}
+
+.orange {
+    color: #FB9900
+}
+
+.red {
+    color: #FE2713
+}
+
 #gridContainer {
     display: grid;
     grid-template-columns: auto;

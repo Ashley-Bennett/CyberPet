@@ -51,7 +51,15 @@ class rabbit extends pet {
 // Declare page elements
 let getButton = document.getElementById("get_button")
 let startButton = document.getElementById("start_button")
-
+let PET_ = document.getElementById("pet")
+let HEALTH_ = document.getElementById("health")
+let THIRST_ = document.getElementById("thirst")
+let HAPPINESS_ = document.getElementById("happiness")
+let HUNGER_ = document.getElementById("hunger")
+let PLAY_ = document.getElementById("play")
+let VET_ = document.getElementById("vet")
+let FEED_ = document.getElementById("feed")
+let DRINK_ = document.getElementById("drink")
 let newPet
 
 
@@ -182,15 +190,21 @@ const feed = () => {
 //getting thirsty
 const thirst = () => {
   newPet.START_THIRST -= 3;
+
   if (newPet.START_THIRST > 80) {
+    THIRST_.className = ("green")
     return (thirstStatus = "Your pet is not thirsty");
   } else if (newPet.START_THIRST <= 80 && newPet.START_THIRST > 60) {
+    THIRST_.className = ("yellow")
     return (thirstStatus = "Your pet is parched");
   } else if (newPet.START_THIRST <= 60 && newPet.START_THIRST > 40) {
+    THIRST_.className = ("amber")
     return (thirstStatus = "Your pet is thirsty");
   } else if (newPet.START_THIRST <= 40 && newPet.START_THIRST > 20) {
+    THIRST_.className = ("orange")
     return (thirstStatus = "Your pet is dehydrated");
   } else if (newPet.START_THIRST <= 20 && newPet.START_THIRST > 0) {
+    THIRST_.className = ("red")
     newPet.HEALTH--;
     return (thirstStatus = "Your pet is dying of dehydration");
   } else newPet.START_THIRST < 0;
@@ -246,6 +260,7 @@ const time = () => {
 // };
 
 const choose = () => {
+  THIRST_.innerHTML = newPet.START_THIRST
   let choice = prompt("What do you want to do? \n 1. Check status of your pet \n 2. Play with your pet \n 3. Feed your pet \n 4. Give your pet a drink \n 5. Go to the vet \n 6. Quit", "");
   if (choice == 1) {
     console.log(happinessStatus, hungerStatus, thirstStatus, healthStatus);
