@@ -173,11 +173,28 @@ button {
     margin-right: auto;
 }
 
+#thirst:hover {
+    cursor: pointer;
+    transform: scale(1.1)
+}
+
+#thirst:active {
+    transform: scale(0.95)
+}
+
 #happiness {
     grid-area: happiness;
     margin-left: auto;
     margin-right: auto;
+}
 
+#happiness:hover {
+    cursor: pointer;
+    transform: scale(1.1)
+}
+
+#happiness:active {
+    transform: scale(0.95)
 }
 
 #hunger {
@@ -203,6 +220,15 @@ button {
     margin-right: auto;
 }
 
+#vet:hover {
+    cursor: pointer;
+    transform: scale(1.1)
+}
+
+#vet:active {
+    transform: scale(0.95)
+}
+
 .title {
     grid-area: title;
     margin-left: auto;
@@ -224,10 +250,10 @@ button {
 
 @keyframes slide {
     from {
-        transform: translateY(25vh)
+        transform: translateY(25vh) scale(0.5)
     }
 
     to {
-        transform: translateY(0px)
+        transform: translateY(0px) scale(1)
     }
 }
