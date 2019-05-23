@@ -33,47 +33,53 @@ body {
     grid-template-rows:
         100px 32.5vh 32.5vh 25vh;
     grid-template-areas:
-        ". get title title go ."
-        "feed pet pet pet pet play"
-        "drink pet pet pet pet vet"
-        ". hunger thirst happiness health .";
+        ". get title title title go ."
+        ". pet pet pet pet pet ."
+        ". pet pet pet pet pet ."
+        ". hunger thirst happiness vet health .";
+    margin: 0px
 }
 
 #pet {
     grid-area: pet;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #health {
     grid-area: health;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #thirst {
     grid-area: thirst;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #happiness {
     grid-area: happiness;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #hunger {
     grid-area: hunger;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#play {
-    grid-area: play;
-}
 
 #vet {
     grid-area: vet;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#feed {
-    grid-area: feed;
-}
 
-#drink {
-    grid-area: drink;
-}
+
+
 
 #get_button {
     grid-area: get;
