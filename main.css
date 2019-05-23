@@ -1,5 +1,34 @@
 body {
-    background-color: gray
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#cfe7fa+0,6393c1+100;Grey+Blue+3D */
+    background: #cfe7fa;
+    /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #cfe7fa 0%, #6393c1 100%);
+    /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, #cfe7fa 0%, #6393c1 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, #cfe7fa 0%, #6393c1 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cfe7fa', endColorstr='#6393c1', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+    background-repeat: space;
+    background-size: cover;
+    font-family: 'Press Start 2P', cursive;
+}
+
+button {
+    background-color: #FCCD6A;
+    /* Green */
+    border: none;
+    border-radius: 5px;
+    color: black;
+    padding: 20px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
 .green {
@@ -23,17 +52,97 @@ body {
 }
 
 .hidden {
-    display: none
+    display: none !important
+}
+
+#tutorialPage {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows:
+        100px 32.5vh 32.5vh 0vh 0vh 25vh;
+    grid-template-areas:
+        ". . title title title . ."
+        ". pet pet pet pet pet ."
+        ". pet pet pet pet pet ."
+        ". text text text text text ."
+        ". . . go . . ."
+        ". hungerEX thirstEX happinessEX vetEX healthEX .";
+}
+
+#healthEX {
+    grid-area: healthEX;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#thirstEX {
+    grid-area: thirstEX;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#happinessEX {
+    grid-area: happinessEX;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#hungerEX {
+    grid-area: hungerEX;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
-#initialPage{
-    
+#vetEX {
+    grid-area: vetEX;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+#tutorialText {
+    grid-area: text;
+    transform: translateY(-150px);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#start_button {
+    grid-area: go;
+    transform: translateY(-80px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#initialPage {
+    display: grid;
+    grid-template-columns:
+        15vw 70vw 15vw;
+    grid-template-rows:
+        100px auto;
+    grid-template-areas:
+        ". title ."
+        ". intro ."
+        ". form ."
+}
+
+#intro {
+    grid-area: intro;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+
+#startForm {
+    grid-area: form;
+    margin-right: auto;
+    margin-left: auto;
+}
 
 #gridContainer {
-    display: none;
+    display: grid;
     grid-template-columns: auto;
     grid-template-rows:
         100px 32.5vh 32.5vh 25vh;
@@ -56,6 +165,8 @@ body {
     margin-right: auto;
 }
 
+
+
 #thirst {
     grid-area: thirst;
     margin-left: auto;
@@ -66,12 +177,23 @@ body {
     grid-area: happiness;
     margin-left: auto;
     margin-right: auto;
+
 }
 
 #hunger {
     grid-area: hunger;
     margin-left: auto;
     margin-right: auto;
+    transition: ease-in-out 0.15s;
+}
+
+#hunger:hover {
+    cursor: pointer;
+    transform: scale(1.1)
+}
+
+#hunger:active {
+    transform: scale(0.95)
 }
 
 
@@ -81,7 +203,11 @@ body {
     margin-right: auto;
 }
 
-
+.title {
+    grid-area: title;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 
 
@@ -89,6 +215,19 @@ body {
     grid-area: get;
 }
 
-#start_button {
-    grid-area: go;
+.used {
+    transform: translateY(100px);
+    animation-name: slide;
+    animation-duration: 5.2s;
+}
+
+
+@keyframes slide {
+    from {
+        transform: translateY(25vh)
+    }
+
+    to {
+        transform: translateY(0px)
+    }
 }

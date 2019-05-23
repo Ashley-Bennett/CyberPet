@@ -65,7 +65,9 @@ let statusArray = [HUNGER_, THIRST_, HAPPINESS_, VET_]
 let NAME_ = document.getElementById("name")
 let ANIMAL_ = document.getElementsByName("animal")
 let INIT_ = document.getElementById("initialPage")
-console.log(INIT_)
+let TUT_ = document.getElementById("tutorialPage")
+let MAIN_ = document.getElementById("gridContainer")
+// console.log(INIT_)
 
 
 const radio = () => {
@@ -80,6 +82,7 @@ const radio = () => {
 const start = (e) => {
   e.preventDefault()
   INIT_.classList.add("hidden")
+  TUT_.classList.remove("hidden")
   let name = NAME_.value
   let animal = radio()
   console.log(animal)
@@ -93,8 +96,6 @@ const start = (e) => {
     default:
       alert("error!")
   }
-
-  
 }
 
 const getDog = () => {
@@ -359,13 +360,12 @@ const life = () => {
 };
 
 
-getButton.addEventListener("click", () => {
-  console.log("start")
-  return newPet = typePet()
-})
+
 
 startButton.addEventListener("click", () => {
   if (newPet && gameStart == 0) {
+    TUT_.classList.add("hidden")
+    MAIN_.classList.remove("hidden")
     gameStart = 1
     life()
   } else if (!newPet) {
