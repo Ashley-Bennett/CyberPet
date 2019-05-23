@@ -6,10 +6,10 @@ class pet {
     this.HUNGER = 100;
     this.THIRST = 100;
     this.HEALTH = 10;
-    this.HUNGER_STATUS = "red"
+    this.HUNGER_STATUS = "green"
     this.THIRST_STATUS = "green"
-    this.HAPPINESS_STATUS = "red"
-    this.HEALTH_STATUS = "red"
+    this.HAPPINESS_STATUS = "green"
+    this.HEALTH_STATUS = "green"
   }
 }
 
@@ -60,10 +60,7 @@ let HEALTH_ = document.getElementById("health")
 let THIRST_ = document.getElementById("thirst")
 let HAPPINESS_ = document.getElementById("happiness")
 let HUNGER_ = document.getElementById("hunger")
-let PLAY_ = document.getElementById("play")
 let VET_ = document.getElementById("vet")
-let FEED_ = document.getElementById("feed")
-let DRINK_ = document.getElementById("drink")
 let newPet
 
 
@@ -127,6 +124,7 @@ let hungerStatus = "Your pet is full";
 let thirstStatus = "Your pet is not thirsty";
 let healthStatus = "Your pet is healthy";
 let quit = 0
+let gameStart = 0
 
 //losing happiness
 const losingHappiness = () => {
@@ -164,14 +162,19 @@ const play = () => {
 const hungry = () => {
   newPet.START_HUNGER -= 3;
   if (newPet.START_HUNGER > 80) {
+    newPet.HUNGER_STATUS = ("green")
     return (hungerStatus = "Your pet is full");
   } else if (newPet.START_HUNGER <= 80 && newPet.START_HUNGER > 60) {
+    newPet.HUNGER_STATUS = ("yellow")
     return (hungerStatus = "Your pet is peckish");
   } else if (newPet.START_HUNGER <= 60 && newPet.START_HUNGER > 40) {
+    newPet.HUNGER_STATUS = ("amber")
     return (hungerStatus = "Your pet is hungry");
   } else if (newPet.START_HUNGER <= 40 && newPet.START_HUNGER > 20) {
+    newPet.HUNGER_STATUS = ("orange")
     return (hungerStatus = "Your pet is starving");
   } else if (newPet.START_HUNGER <= 20 && newPet.START_HUNGER > 0) {
+    newPet.HUNGER_STATUS = ("red")
     newPet.HEALTH--;
     return (hungerStatus = "Your pet is dying of starvation");
   } else newPet.START_HUNGER < 0;
@@ -181,15 +184,15 @@ const hungry = () => {
 };
 
 //feeding
-const feed = () => {
-  if (newPet.START_HUNGER > newPet.MAX_HUNGER) {
-    console.log("Your pet is full");
-    return;
-  } else {
-    newPet.START_HUNGER += 20;
-    newPet.START_THIRST - 10;
-  }
-};
+// const feed = () => {
+//   if (newPet.START_HUNGER > newPet.MAX_HUNGER) {
+//     console.log("Your pet is full");
+//     return;
+//   } else {
+//     newPet.START_HUNGER += 20;
+//     newPet.START_THIRST - 10;
+//   }
+// };
 
 //getting thirsty
 const thirst = () => {
@@ -218,14 +221,14 @@ const thirst = () => {
 };
 
 //give drink
-const giveDrink = () => {
-  if (newPet.START_THIRST > newPet.MAX_THIRST) {
-    console.log("Your pet is not tirsty");
-    return;
-  } else {
-    newPet.START_THIRST += 20;
-  }
-};
+// const giveDrink = () => {
+//   if (newPet.START_THIRST > newPet.MAX_THIRST) {
+//     console.log("Your pet is not tirsty");
+//     return;
+//   } else {
+//     newPet.START_THIRST += 20;
+//   }
+// };
 
 //health status check
 const healthCheck = () => {
@@ -269,10 +272,10 @@ const choose = () => {
   if (choice == 1) {
     console.log(happinessStatus, hungerStatus, thirstStatus, healthStatus);
     console.log(
-    newPet.HAPPINESS,
-    newPet.START_HUNGER,
-    newPet.START_THIRST,
-    newPet.HEALTH
+      newPet.HAPPINESS,
+      newPet.START_HUNGER,
+      newPet.START_THIRST,
+      newPet.HEALTH
     );
   } else if (choice == 2) {
     console.log("you have played with your pet");
@@ -293,7 +296,87 @@ const choose = () => {
 };
 
 const update = () => {
-  THIRST_.className = (newPet.THIRST_STATUS)
+  THIRST_.classList.remove("green", "yellow", "amber", "orange", "red")
+  THIRST_.classList.add(newPet.THIRST_STATUS)
+  HUNGER_.classList.remove("green", "yellow", "amber", "orange", "red")
+  HUNGER_.classList.add(newPet.HUNGER_STATUS)
+  HEALTH_.classList.remove("green", "yellow", "amber", "orange", "red")
+  HEALTH_.classList.add(newPet.HEALTH_STATUS)
+  HAPPINESS_.classList.remove("green", "yellow", "amber", "orange", "red")
+  HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
+}
+
+THIRST_.addEventListener("click", () => {
+  water()
+})
+
+HUNGER_.addEventListener("click", () => {
+  feed()
+})
+
+HAPPINESS_.addEventListener("click", () => {
+  play()
+})
+
+let statusArray = [HUNGER_, THIRST_, HAPPINESS_, VET_]
+
+const removeUsed = () => {
+  console.log("hi")
+  for (i = 0; i < statusArray.length; i++) {
+    statusArray[i].classList.remove("used")
+  }
+}
+
+
+
+const water = () => {
+  if (THIRST_.classList.contains("used")) {
+    return
+  } else {
+    THIRST_.classList.add("used")
+    if (newPet.START_THIRST > newPet.MAX_THIRST) {
+      return;
+    } else {
+      newPet.START_THIRST += 20;
+    }
+    setTimeout(removeUsed.bind(null, THIRST_), 5000)
+  }
+}
+
+const feed = () => {
+  if (HUNGER_.classList.contains("used")) {
+    return
+  } else {
+    for (i = 0; i < statusArray.length; i++) {
+      statusArray[i].classList.add("used")
+    }
+    // HUNGER_.classList.add("used")
+    if (newPet.START_HUNGER > newPet.MAX_HUNGER) {
+      return;
+    } else {
+      newPet.START_HUNGER += 20;
+      newPet.START_THIRST - 10
+    }
+    setTimeout(removeUsed, 5000)
+  }
+}
+
+const play = () => {
+  if (HAPPINESS_.classList.contains("used")) {
+    return
+  } else {
+    for (i = 0; i < statusArray.length; i++) {
+      statusArray[i].classList.add("used")
+    }
+    if (newPet.HAPPINESS > newPet.MAX_HAPPINESS) {
+      return;
+    } else {
+      newPet.HAPPINESS += 20;
+      newPet.START_HUNGER -= 10;
+      newPet.START_THIRST -= 10;
+    }
+    setTimeout(removeUsed, 5000)
+  }
 }
 
 
@@ -305,10 +388,10 @@ const life = () => {
   let hungryInt = setInterval(hungry, 7000);
   let thirstInt = setInterval(thirst, 3000);
   let updateInt = setInterval(update, 5000)
-  
+
 
   const quitting = () => {
-    if(quit){
+    if (quit) {
       clearInterval(healthCheckInt);
       clearInterval(timeInt);
       clearInterval(chooseInt);
@@ -320,7 +403,7 @@ const life = () => {
     }
   }
   let gameQuit = setInterval(quitting, 2000)
-  
+
 };
 
 // life();
@@ -331,9 +414,10 @@ getButton.addEventListener("click", () => {
 })
 
 startButton.addEventListener("click", () => {
-  if (newPet) {
+  if (newPet && gameStart == 0) {
+    gameStart = 1
     life()
-  } else {
+  } else if (!newPet) {
     alert("You need to get a pet")
   }
 })
