@@ -27,8 +27,13 @@ body {
 }
 
 
+#initialPage{
+    
+}
+
+
 #gridContainer {
-    display: grid;
+    display: none;
     grid-template-columns: auto;
     grid-template-rows:
         100px 32.5vh 32.5vh 25vh;
@@ -37,7 +42,6 @@ body {
         ". pet pet pet pet pet ."
         ". pet pet pet pet pet ."
         ". hunger thirst happiness vet health .";
-    margin: 0px
 }
 
 #pet {

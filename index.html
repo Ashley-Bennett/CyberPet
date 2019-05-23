@@ -10,7 +10,27 @@
 </head>
 
 <body>
-    <div id="gridContainer">
+    <div id="initialPage" class="">
+        <h1>Cyber Pet v2</h1>
+        <p>Create a virtual pet with the options below. It is then your responsibility to care for your new pet by
+            feeding, playing with and giving water. If your pet gets sick you can also visit the vet.</p>
+        <form id="startForm" action="">
+            Animal:
+            <br>
+            <input type="radio" name="animal" value="dog" checked> Dog<br>
+            <input type="radio" name="animal" value="cat"> Cat<br>
+            <input type="radio" name="animal" value="rabbit"> Rabbit
+            <br>
+            Name:
+            <input id="name" type="text" name="name" value="Fluffy">
+            <br>
+            <input type="submit" value="Collect Pet" onclick="start(event)">
+        </form>
+    </div>
+    <div id="tutorialPage" class="hidden">
+
+    </div>
+    <div id="gridContainer" class="hidden">
         <p id="get_button">Get Pet</p>
         <p id="start_button">Start</p>
         <span id="pet">Pet</span>

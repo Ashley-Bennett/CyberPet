@@ -61,8 +61,41 @@ let THIRST_ = document.getElementById("thirst")
 let HAPPINESS_ = document.getElementById("happiness")
 let HUNGER_ = document.getElementById("hunger")
 let VET_ = document.getElementById("vet")
-let newPet
+let statusArray = [HUNGER_, THIRST_, HAPPINESS_, VET_]
+let NAME_ = document.getElementById("name")
+let ANIMAL_ = document.getElementsByName("animal")
+let INIT_ = document.getElementById("initialPage")
+console.log(INIT_)
 
+
+const radio = () => {
+  for (var i = 0; i < ANIMAL_.length; i++) {
+    if (ANIMAL_[i].checked) {
+      animal = ANIMAL_[i].value;
+      return animal
+    }
+  }
+}
+
+const start = (e) => {
+  e.preventDefault()
+  INIT_.classList.add("hidden")
+  let name = NAME_.value
+  let animal = radio()
+  console.log(animal)
+  switch (animal) {
+    case "dog":
+      return newPet = new dog(`${name}`)
+    case "cat":
+      return newPet = new cat(`${name}`)
+    case 'rabbit':
+      return newPet = new rabbit(`${name}`)
+    default:
+      alert("error!")
+  }
+
+  
+}
 
 const getDog = () => {
   let name = prompt("What do you want to name your dog?", "");
@@ -116,13 +149,6 @@ const typePet = () => {
 
 };
 
-
-
-
-let happinessStatus = "Your pet is happy";
-let hungerStatus = "Your pet is full";
-let thirstStatus = "Your pet is not thirsty";
-let healthStatus = "Your pet is healthy";
 let quit = 0
 let gameStart = 0
 
@@ -146,17 +172,7 @@ const losingHappiness = () => {
   return (happinessStatus = "Your pet is dying of boredom");
 };
 
-//playing
-const play = () => {
-  if (newPet.HAPPINESS > newPet.MAX_HAPPINESS) {
-    console.log("Your pet is already happy");
-    return;
-  } else {
-    newPet.HAPPINESS += 20;
-    newPet.START_HUNGER -= 10;
-    newPet.START_THIRST -= 10;
-  }
-};
+
 
 //getting hungry
 const hungry = () => {
@@ -183,16 +199,6 @@ const hungry = () => {
   return (hungerStatus = "Your pet is dying of starvation");
 };
 
-//feeding
-// const feed = () => {
-//   if (newPet.START_HUNGER > newPet.MAX_HUNGER) {
-//     console.log("Your pet is full");
-//     return;
-//   } else {
-//     newPet.START_HUNGER += 20;
-//     newPet.START_THIRST - 10;
-//   }
-// };
 
 //getting thirsty
 const thirst = () => {
@@ -220,33 +226,8 @@ const thirst = () => {
   return (thirstStatus = "Your pet is dying of dehydration");
 };
 
-//give drink
-// const giveDrink = () => {
-//   if (newPet.START_THIRST > newPet.MAX_THIRST) {
-//     console.log("Your pet is not tirsty");
-//     return;
-//   } else {
-//     newPet.START_THIRST += 20;
-//   }
-// };
 
-//health status check
-const healthCheck = () => {
-  if (newPet.HEALTH > 9) {
-    return (healthStatus = "Your pet is healthy");
-  } else if (newPet.HEALTH <= 9 && newPet.HEALTH > 6) {
-    return (healthStatus = "Your pet is feeling sick");
-  } else if (newPet.HEALTH <= 6 && newPet.HEALTH > 4) {
-    return (healthStatus = "Your pet is sick");
-  } else if (newPet.HEALTH <= 4 && newPet.HEALTH > 2) {
-    return (healthStatus = "Your pet is really sick");
-  } else if (newPet.HEALTH <= 2 && newPet.HEALTH > 0) {
-    newPet.HEALTH--;
-    return (healthStatus = "Your pet is dying of sickness");
-  } else {
-    console.log("Your pet has died :'(");
-  }
-};
+
 
 //go to vet
 const visitVet = () => {
@@ -261,48 +242,16 @@ const time = () => {
   console.log("...");
 };
 
-// const quit = () => {
-//   // newPet.HEALTH -= 11;
-//   return quit = 1;
-// };
-
-const choose = () => {
-  THIRST_.innerHTML = newPet.START_THIRST
-  let choice = prompt("What do you want to do? \n 1. Check status of your pet \n 2. Play with your pet \n 3. Feed your pet \n 4. Give your pet a drink \n 5. Go to the vet \n 6. Quit", "");
-  if (choice == 1) {
-    console.log(happinessStatus, hungerStatus, thirstStatus, healthStatus);
-    console.log(
-      newPet.HAPPINESS,
-      newPet.START_HUNGER,
-      newPet.START_THIRST,
-      newPet.HEALTH
-    );
-  } else if (choice == 2) {
-    console.log("you have played with your pet");
-    return play();
-  } else if (choice == 3) {
-    console.log("you have fed your pet");
-    return feed();
-  } else if (choice == 4) {
-    console.log("you have given your pet a drink");
-    return giveDrink();
-  } else if (choice == 5) {
-    console.log("you have taken your pet to the vet");
-    return visitVet();
-  } else if (choice == 6) {
-    console.log("Quitting...");
-    return quit = 1;
-  }
-};
 
 const update = () => {
-  THIRST_.classList.remove("green", "yellow", "amber", "orange", "red")
+  for (i = 0; i < statusArray.length; i++) {
+    statusArray[i].classList.remove("green", "yellow", "amber", "orange", "red")
+  }
+
+
   THIRST_.classList.add(newPet.THIRST_STATUS)
-  HUNGER_.classList.remove("green", "yellow", "amber", "orange", "red")
   HUNGER_.classList.add(newPet.HUNGER_STATUS)
-  HEALTH_.classList.remove("green", "yellow", "amber", "orange", "red")
   HEALTH_.classList.add(newPet.HEALTH_STATUS)
-  HAPPINESS_.classList.remove("green", "yellow", "amber", "orange", "red")
   HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
 }
 
@@ -318,7 +267,7 @@ HAPPINESS_.addEventListener("click", () => {
   play()
 })
 
-let statusArray = [HUNGER_, THIRST_, HAPPINESS_, VET_]
+
 
 const removeUsed = () => {
   console.log("hi")
@@ -381,13 +330,16 @@ const play = () => {
 
 
 const life = () => {
-  let healthCheckInt = setInterval(healthCheck, 1000);
   let timeInt = setInterval(time, 1000);
   // let chooseInt = setInterval(choose, 5000);
   let losingHappinessInt = setInterval(losingHappiness, 4000);
   let hungryInt = setInterval(hungry, 7000);
   let thirstInt = setInterval(thirst, 3000);
   let updateInt = setInterval(update, 5000)
+  THIRST_.classList.add(newPet.THIRST_STATUS)
+  HUNGER_.classList.add(newPet.HUNGER_STATUS)
+  HEALTH_.classList.add(newPet.HEALTH_STATUS)
+  HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
 
 
   const quitting = () => {
@@ -406,7 +358,6 @@ const life = () => {
 
 };
 
-// life();
 
 getButton.addEventListener("click", () => {
   console.log("start")
