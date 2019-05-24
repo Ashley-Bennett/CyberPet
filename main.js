@@ -6,6 +6,7 @@
       rabbit
     conatin all with classes and objects
     tidy classes and variables not used
+    export functions
 
   future implementations:
     dificulty multiplier
@@ -70,7 +71,7 @@ class rabbit extends pet {
 let GET_BUTTON = document.getElementById("get_button")
 let START_BUTTON = document.getElementById("start_button")
 let PET_ = document.getElementById("pet")
-let HEALTH_ = document.getElementById("health")
+// let HEALTH_ = document.getElementById("health")
 let THIRST_ = document.getElementById("thirst")
 let HAPPINESS_ = document.getElementById("happiness")
 let HUNGER_ = document.getElementById("hunger")
@@ -82,8 +83,14 @@ let INIT_ = document.getElementById("initialPage")
 let TUT_ = document.getElementById("tutorialPage")
 let MAIN_ = document.getElementById("gridContainer")
 let GAME_OVER_ = document.getElementById("gameOver")
+let OUTRO_ = document.getElementById("outro")
+let FINAL_SCORE_ = document.getElementById("finalScore")
 
-let dogArr = []
+//  Global variables
+let quit = 0
+let gameStart = 0
+let score = 0
+let time = 0
 
 
 const radio = () => {
@@ -166,8 +173,7 @@ const typePet = () => {
 
 };
 
-let quit = 0
-let gameStart = 0
+
 
 //losing happiness
 const losingHappiness = () => {
@@ -279,12 +285,14 @@ const healthCheck = () => {
   }
 }
 
-const time = () => {
+const timer = () => {
+  time ++
   console.log("...");
 };
 
 //  Update status every 5 seconds
 const update = () => {
+  score += newPet.HEALTH
   for (i = 0; i < statusArray.length; i++) {
     statusArray[i].classList.remove("green", "yellow", "amber", "orange", "red")
   }
@@ -391,7 +399,7 @@ const vet = () => {
 
 
 const life = () => {
-  let timeInt = setInterval(time, 1000);
+  let timeInt = setInterval(timer, 1000);
   let healthInt = setInterval(healthCheck, 1000);
   let losingHappinessInt = setInterval(losingHappiness, 4000);
   let hungryInt = setInterval(hungry, 7000);
@@ -399,7 +407,7 @@ const life = () => {
   let updateInt = setInterval(update, 5000)
   THIRST_.classList.add(newPet.THIRST_STATUS)
   HUNGER_.classList.add(newPet.HUNGER_STATUS)
-  HEALTH_.classList.add(newPet.HEALTH_STATUS)
+  // HEALTH_.classList.add(newPet.HEALTH_STATUS)
   HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
   VET_.classList.add(newPet.HEALTH_STATUS)
 
@@ -408,6 +416,8 @@ const life = () => {
     if (quit) {
       MAIN_.classList.add("hidden")
       GAME_OVER_.classList.remove("hidden")
+      OUTRO_.innerText = `Sadly your pet ${newPet.PET}, ${newPet.NAME}, has passed away after being in your care for ${time} seconds. Your final score is:`
+      FINAL_SCORE_.innerText = `${score}`
       clearInterval(healthInt)
       clearInterval(timeInt);
       clearInterval(losingHappinessInt);

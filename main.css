@@ -88,19 +88,14 @@ input[type=submit] {
     grid-template-rows:
         100px 32.5vh 32.5vh 0vh 0vh 25vh;
     grid-template-areas:
-        ". . title title title . ."
-        ". pet pet pet pet pet ."
-        ". pet pet pet pet pet ."
-        ". text text text text text ."
-        ". . . go . . ."
-        ". hungerEX thirstEX happinessEX vetEX healthEX .";
+        ". . title title . ."
+        ". pet pet pet pet ."
+        ". pet pet pet pet ."
+        ". text text text text ."
+        ". . go go . ."
+        ". hungerEX thirstEX happinessEX vetEX .";
 }
 
-#healthEX {
-    grid-area: healthEX;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 #thirstEX {
     grid-area: thirstEX;
@@ -174,10 +169,10 @@ input[type=submit] {
     grid-template-rows:
         100px 32.5vh 32.5vh 25vh;
     grid-template-areas:
-        ". get title title title go ."
-        ". pet pet pet pet pet ."
-        ". pet pet pet pet pet ."
-        ". hunger thirst happiness vet health .";
+        ". get title title go ."
+        ". pet pet pet pet ."
+        ". pet pet pet pet ."
+        ". hunger thirst happiness vet .";
 }
 
 #pet {
@@ -185,12 +180,6 @@ input[type=submit] {
     margin-left: auto;
     margin-right: auto;
     transform: translateY(-100px);
-}
-
-#health {
-    grid-area: health;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 
@@ -301,5 +290,7 @@ input[type=submit] {
         transform: translateY(30px)
     }
 
-    100% {transform: translateY(0px)}
+    100% {
+        transform: translateY(0px)
+    }
 }
