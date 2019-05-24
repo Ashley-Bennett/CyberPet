@@ -74,12 +74,10 @@ class rabbit extends pet {
 let GET_BUTTON = document.getElementById("get_button")
 let START_BUTTON = document.getElementById("start_button")
 let PET_ = document.getElementById("pet")
-// let HEALTH_ = document.getElementById("health")
 let THIRST_ = document.getElementById("thirst")
 let HAPPINESS_ = document.getElementById("happiness")
 let HUNGER_ = document.getElementById("hunger")
 let VET_ = document.getElementById("vet")
-let statusArray = [HUNGER_, THIRST_, HAPPINESS_, VET_]
 let NAME_ = document.getElementById("name")
 let ANIMAL_ = document.getElementsByName("animal")
 let INIT_ = document.getElementById("initialPage")
@@ -89,14 +87,16 @@ let GAME_OVER_ = document.getElementById("gameOver")
 let OUTRO_ = document.getElementById("outro")
 let FINAL_SCORE_ = document.getElementById("finalScore")
 let NEW_GAME_ = document.getElementById("newGame")
+let REQUIRED_ = document.getElementById("required")
 
 //  Global variables
 let quit = 0
 let gameStart = 0
 let score = 0
 let time = 0
+let statusArray = [HUNGER_, THIRST_, HAPPINESS_, VET_]
 
-
+//  Gets radio value
 const radio = () => {
   for (var i = 0; i < ANIMAL_.length; i++) {
     if (ANIMAL_[i].checked) {
@@ -106,80 +106,31 @@ const radio = () => {
   }
 }
 
+//  Collects pet name and type. Move to tutorial room.
 const start = (e) => {
   e.preventDefault()
-  INIT_.classList.add("hidden")
-  TUT_.classList.remove("hidden")
   let name = NAME_.value
-  let animal = radio()
-  console.log(animal)
-  switch (animal) {
-    case "dog":
-      return newPet = new dog(`${name}`)
-    case "cat":
-      return newPet = new cat(`${name}`)
-    case 'rabbit':
-      return newPet = new rabbit(`${name}`)
-    default:
-      alert("error!")
+  if (name) {
+    INIT_.classList.add("hidden")
+    TUT_.classList.remove("hidden")
+    let animal = radio()
+    switch (animal) {
+      case "dog":
+        return newPet = new dog(`${name}`)
+      case "cat":
+        return newPet = new cat(`${name}`)
+      case 'rabbit':
+        return newPet = new rabbit(`${name}`)
+      default:
+        alert("error! - radio select")
+    }
+  } else {
+    REQUIRED_.classList.remove("hidden")
   }
 }
 
-const getDog = () => {
-  let name = prompt("What do you want to name your dog?", "");
-  if (name) {
-    alert(`You now have a dog named ${name}`)
-    let newPet = new dog(`${name}`)
-    return (newPet)
-  } else {
-    alert("You must name your pet")
-    getDog()
-  }
-};
 
-const getCat = () => {
-  let name = prompt("What do you want to name your cat?", "");
-  if (name) {
-    alert(`You now have a cat named ${name}`)
-    let newPet = new cat(`${name}`)
-    return (newPet)
-  } else {
-    alert("You must name your pet")
-    getCat()
-  }
-};
-
-const getRabbit = () => {
-  let name = prompt("What do you want to name your rabbit?", "");
-  if (name) {
-    alert(`You now have a rabbit named ${name}`)
-    let newPet = new rabbit(`${name}`)
-    return (newPet)
-  } else {
-    alert("You must name your pet")
-    getRabbit()
-  }
-};
-
-const typePet = () => {
-  let petType = prompt("What kind of pet do you want? \n 1. Dog \n 2. Cat \n 3. Rabbit", "")
-  switch (petType) {
-    case "1":
-      return getDog()
-    case "2":
-      return getCat()
-    case "3":
-      return getRabbit();
-    default:
-      alert("Not an option")
-      typePet();
-  }
-
-};
-
-
-
-//losing happiness
+//  Losing happiness over time
 const losingHappiness = () => {
   newPet.HAPPINESS -= 3;
   if (newPet.HAPPINESS > 80) {
@@ -199,6 +150,7 @@ const losingHappiness = () => {
     newPet.HEALTH--;
     return (happinessStatus = "Your pet is dying of boredom");
   } else if (newPet.HAPPINESS < 0) {
+    newPet.HAPPINESS_STATUS = ("red")
     do {
       newPet.HAPPINESS++;
     } while (newPet.HAPPINESS < 0);
@@ -211,7 +163,7 @@ const losingHappiness = () => {
 
 
 
-//getting hungry
+//  Getting hungry over time
 const hungry = () => {
   newPet.START_HUNGER -= 3;
   if (newPet.START_HUNGER > 80) {
@@ -231,6 +183,7 @@ const hungry = () => {
     newPet.HEALTH--;
     return (hungerStatus = "Your pet is dying of starvation");
   } else if (newPet.START_HUNGER < 0) {
+    newPet.HUNGER_STATUS = ("red")
     do {
       newPet.START_HUNGER++;
     } while (newPet.START_HUNGER < 0);
@@ -242,7 +195,7 @@ const hungry = () => {
 };
 
 
-//getting thirsty
+//  Getting thirsty over time
 const thirst = () => {
   newPet.START_THIRST -= 3;
   if (newPet.START_THIRST > 80) {
@@ -262,6 +215,7 @@ const thirst = () => {
     newPet.HEALTH--;
     return (thirstStatus = "Your pet is dying of dehydration");
   } else if (newPet.START_THIRST <= 0) {
+    newPet.THIRST_STATUS = ("red")
     do {
       newPet.START_THIRST++;
     } while (newPet.START_THIRST < 0);
@@ -272,6 +226,7 @@ const thirst = () => {
   }
 };
 
+//  Periodically checks health. If drops below 0 then sets quit to 1.
 const healthCheck = () => {
   if (newPet.HEALTH > 8) {
     PET_.src = newPet.STATUS_IMG[0]
@@ -431,6 +386,7 @@ const newGame = () => {
   quit = 0
   time = 0
   score = 0
+  gameStart = 0
 }
 
 //  Button event listeners

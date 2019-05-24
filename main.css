@@ -97,6 +97,8 @@ input[type=submit] {
 }
 
 
+
+
 #thirstEX {
     grid-area: thirstEX;
     margin-left: auto;
@@ -147,6 +149,7 @@ input[type=submit] {
         ". title ."
         ". intro ."
         ". form ."
+        ". required ."
 }
 
 #intro {
@@ -156,6 +159,11 @@ input[type=submit] {
 
 }
 
+#required {
+    grid-area: required;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 #startForm {
     grid-area: form;
@@ -306,6 +314,7 @@ input[type=submit] {
         ". gameOver ."
         ". outro ."
         ". score ."
+        ". newGame ."
 
 }
 
@@ -326,4 +335,10 @@ input[type=submit] {
     margin-left: auto;
     margin-right: auto;
     font-size: 2rem
+}
+
+#newGame {
+    grid-area: newGame;
+    margin-left: auto;
+    margin-right: auto;
 }
