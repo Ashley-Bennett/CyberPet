@@ -294,3 +294,36 @@ input[type=submit] {
         transform: translateY(0px)
     }
 }
+
+#gameOver {
+    display: grid;
+    grid-template-columns:
+        15vw 70vw 15vw;
+    grid-template-rows:
+        100px auto;
+    grid-template-areas:
+        ". title ."
+        ". gameOver ."
+        ". outro ."
+        ". score ."
+
+}
+
+#gameOverText {
+    grid-area: gameOver;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#outro {
+    grid-area: outro;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#finalScore {
+    grid-area: score;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2rem
+}

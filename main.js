@@ -7,6 +7,9 @@
     conatin all with classes and objects
     tidy classes and variables not used
     export functions
+    devMode
+    new game
+    empty name
 
   future implementations:
     dificulty multiplier
@@ -195,7 +198,9 @@ const losingHappiness = () => {
     newPet.HEALTH--;
     return (happinessStatus = "Your pet is dying of boredom");
   } else if (newPet.HAPPINESS < 0) {
-    newPet.HAPPINESS += 3;
+    do {
+      newPet.HAPPINESS++;
+    } while (newPet.HAPPINESS < 0);
     newPet.HEALTH--;
     return (happinessStatus = "Your pet is dying of boredom");
   } else {
@@ -225,7 +230,9 @@ const hungry = () => {
     newPet.HEALTH--;
     return (hungerStatus = "Your pet is dying of starvation");
   } else if (newPet.START_HUNGER < 0) {
-    newPet.START_HUNGER += 3;
+    do {
+      newPet.START_HUNGER++;
+    } while (newPet.START_HUNGER < 0);
     newPet.HEALTH--;
     return (hungerStatus = "Your pet is dying of starvation");
   } else {
@@ -254,7 +261,9 @@ const thirst = () => {
     newPet.HEALTH--;
     return (thirstStatus = "Your pet is dying of dehydration");
   } else if (newPet.START_THIRST <= 0) {
-    newPet.START_THIRST += 3;
+    do {
+      newPet.START_THIRST++;
+    } while (newPet.START_THIRST < 0);
     newPet.HEALTH--;
     return (thirstStatus = "Your pet is dying of dehydration");
   } else {
@@ -286,8 +295,7 @@ const healthCheck = () => {
 }
 
 const timer = () => {
-  time ++
-  console.log("...");
+  time++
 };
 
 //  Update status every 5 seconds
@@ -306,21 +314,7 @@ const update = () => {
   console.log(newPet.HEALTH)
 }
 
-THIRST_.addEventListener("click", () => {
-  water()
-})
 
-HUNGER_.addEventListener("click", () => {
-  feed()
-})
-
-HAPPINESS_.addEventListener("click", () => {
-  play()
-})
-
-VET_.addEventListener("click", () => {
-  vet()
-})
 
 
 //  Removes "used" class
@@ -432,8 +426,19 @@ const life = () => {
 };
 
 
-
-
+//  Button event listeners
+THIRST_.addEventListener("click", () => {
+  water()
+})
+HUNGER_.addEventListener("click", () => {
+  feed()
+})
+HAPPINESS_.addEventListener("click", () => {
+  play()
+})
+VET_.addEventListener("click", () => {
+  vet()
+})
 START_BUTTON.addEventListener("click", () => {
   if (newPet && gameStart == 0) {
     TUT_.classList.add("hidden")
