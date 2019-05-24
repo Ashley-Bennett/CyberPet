@@ -88,6 +88,7 @@ let MAIN_ = document.getElementById("gridContainer")
 let GAME_OVER_ = document.getElementById("gameOver")
 let OUTRO_ = document.getElementById("outro")
 let FINAL_SCORE_ = document.getElementById("finalScore")
+let NEW_GAME_ = document.getElementById("newGame")
 
 //  Global variables
 let quit = 0
@@ -401,7 +402,6 @@ const life = () => {
   let updateInt = setInterval(update, 5000)
   THIRST_.classList.add(newPet.THIRST_STATUS)
   HUNGER_.classList.add(newPet.HUNGER_STATUS)
-  // HEALTH_.classList.add(newPet.HEALTH_STATUS)
   HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
   VET_.classList.add(newPet.HEALTH_STATUS)
 
@@ -425,6 +425,13 @@ const life = () => {
 
 };
 
+const newGame = () => {
+  GAME_OVER_.classList.add("hidden")
+  INIT_.classList.remove("hidden")
+  quit = 0
+  time = 0
+  score = 0
+}
 
 //  Button event listeners
 THIRST_.addEventListener("click", () => {
@@ -448,4 +455,7 @@ START_BUTTON.addEventListener("click", () => {
   } else if (!newPet) {
     alert("You need to get a pet")
   }
+})
+NEW_GAME_.addEventListener("click", () => {
+  newGame()
 })
