@@ -16,11 +16,11 @@ body {
     background-repeat: space;
     background-size: cover;
     font-family: 'Press Start 2P', cursive;
+    user-select: none;
 }
 
 button {
     background-color: #FCCD6A;
-    /* Green */
     border: none;
     border-radius: 5px;
     color: black;
@@ -29,6 +29,33 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+p {
+    line-height: 1.6;
+}
+
+input[type=text] {
+    width: 90%;
+    font-family: 'Press Start 2P', cursive;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+input[type=submit] {
+    background-color: #FCCD6A;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    padding: 20px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .green {
@@ -157,6 +184,7 @@ button {
     grid-area: pet;
     margin-left: auto;
     margin-right: auto;
+    transform: translateY(-100px);
 }
 
 #health {
@@ -245,6 +273,8 @@ button {
     transform: translateY(100px);
     animation-name: slide;
     animation-duration: 5.2s;
+    pointer-events: none;
+    cursor: default !important;
 }
 
 
@@ -256,4 +286,20 @@ button {
     to {
         transform: translateY(0px) scale(1)
     }
+}
+
+.action {
+    animation: alive ease 0.7s infinite
+}
+
+@keyframes alive {
+    0% {
+        transform: translateY(0px)
+    }
+
+    50% {
+        transform: translateY(30px)
+    }
+
+    100% {transform: translateY(0px)}
 }

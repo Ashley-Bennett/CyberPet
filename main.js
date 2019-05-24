@@ -1,14 +1,15 @@
 /*
   task list:
-    vet useage
-    game over screen
+    game over screen - basic
     pet
-      dog
       cat
       rabbit
     conatin all with classes and objects
+    tidy classes and variables not used
 
-
+  future implementations:
+    dificulty multiplier
+    colour blind mode
 */
 //overall pet class
 class pet {
@@ -35,6 +36,7 @@ class dog extends pet {
     this.START_THIRST = 75;
     this.PET = "Dog";
     this.MAX_HAPPINESS = Math.floor(this.HAPPINESS * 1.2);
+    this.STATUS_IMG = ["./assets/dog/dog_green.png", "./assets/dog/dog_yellow.png", "./assets/dog/dog_amber.png", "./assets/dog/dog_orange.png", "./assets/dog/dog_red.png"]
   }
 }
 
@@ -65,8 +67,8 @@ class rabbit extends pet {
 }
 
 // Declare page elements
-let getButton = document.getElementById("get_button")
-let startButton = document.getElementById("start_button")
+let GET_BUTTON = document.getElementById("get_button")
+let START_BUTTON = document.getElementById("start_button")
 let PET_ = document.getElementById("pet")
 let HEALTH_ = document.getElementById("health")
 let THIRST_ = document.getElementById("thirst")
@@ -79,7 +81,9 @@ let ANIMAL_ = document.getElementsByName("animal")
 let INIT_ = document.getElementById("initialPage")
 let TUT_ = document.getElementById("tutorialPage")
 let MAIN_ = document.getElementById("gridContainer")
-// console.log(INIT_)
+let GAME_OVER_ = document.getElementById("gameOver")
+
+let dogArr = []
 
 
 const radio = () => {
@@ -227,7 +231,6 @@ const hungry = () => {
 //getting thirsty
 const thirst = () => {
   newPet.START_THIRST -= 3;
-
   if (newPet.START_THIRST > 80) {
     newPet.THIRST_STATUS = ("green")
     return (thirstStatus = "Your pet is not thirsty");
@@ -244,7 +247,7 @@ const thirst = () => {
     newPet.THIRST_STATUS = ("red")
     newPet.HEALTH--;
     return (thirstStatus = "Your pet is dying of dehydration");
-  } else if (newPet.START_THIRST < 0) {
+  } else if (newPet.START_THIRST <= 0) {
     newPet.START_THIRST += 3;
     newPet.HEALTH--;
     return (thirstStatus = "Your pet is dying of dehydration");
@@ -253,21 +256,32 @@ const thirst = () => {
   }
 };
 
-
-let lifebar = 20
-
-
+const healthCheck = () => {
+  if (newPet.HEALTH > 8) {
+    PET_.src = newPet.STATUS_IMG[0]
+    return newPet.HEALTH_STATUS = ("green")
+  } else if (newPet.HEALTH <= 8 && newPet.HEALTH > 6) {
+    PET_.src = newPet.STATUS_IMG[1]
+    return newPet.HEALTH_STATUS = ("yellow")
+  } else if (newPet.HEALTH <= 6 && newPet.HEALTH > 4) {
+    PET_.src = newPet.STATUS_IMG[2]
+    return newPet.HEALTH_STATUS = ("amber")
+  } else if (newPet.HEALTH <= 4 && newPet.HEALTH > 2) {
+    PET_.src = newPet.STATUS_IMG[3]
+    return newPet.HEALTH_STATUS = ("orange")
+  } else if (newPet.HEALTH <= 2 && newPet.HEALTH > 0) {
+    PET_.src = newPet.STATUS_IMG[4]
+    return newPet.HEALTH_STATUS = ("red")
+  } else if (newPet.HEALTH <= 0) {
+    quit = 1
+  } else {
+    alert("error - healthCheck")
+  }
+}
 
 const time = () => {
   console.log("...");
-  console.log(lifebar);
-  lifebar --
 };
-
-const heal = () => {
-  lifebar += 4
-}
-
 
 //  Update status every 5 seconds
 const update = () => {
@@ -276,25 +290,12 @@ const update = () => {
   }
   THIRST_.classList.add(newPet.THIRST_STATUS)
   HUNGER_.classList.add(newPet.HUNGER_STATUS)
-  HEALTH_.classList.add(newPet.HEALTH_STATUS)
+  VET_.classList.add(newPet.HEALTH_STATUS)
   HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
-
-  if (newPet.HEALTH_STATUS > 8) {
-    return newPet.HEALTH_STATUS = ("green")
-  } else if (newPet.START_THIRST <= 80 && newPet.START_THIRST > 60) {
-    return newPet.HEALTH_STATUS = ("yellow")
-  } else if (newPet.START_THIRST <= 60 && newPet.START_THIRST > 40) {
-    return newPet.HEALTH_STATUS = ("amber")
-  } else if (newPet.START_THIRST <= 40 && newPet.START_THIRST > 20) {
-    return newPet.HEALTH_STATUS = ("orange")
-  } else if (newPet.START_THIRST <= 20 && newPet.START_THIRST > 0) {
-    return newPet.HEALTH_STATUS = ("re")
-  } else if (newPet.START_THIRST < 0) {
-    alert("GAME OVER")
-
-  } else {
-    alert("error - healthCheck")
-  }
+  console.log(newPet.START_HUNGER)
+  console.log(newPet.START_THIRST)
+  console.log(newPet.HAPPINESS)
+  console.log(newPet.HEALTH)
 }
 
 THIRST_.addEventListener("click", () => {
@@ -307,6 +308,10 @@ HUNGER_.addEventListener("click", () => {
 
 HAPPINESS_.addEventListener("click", () => {
   play()
+})
+
+VET_.addEventListener("click", () => {
+  vet()
 })
 
 
@@ -326,9 +331,7 @@ const water = () => {
     for (i = 0; i < statusArray.length; i++) {
       statusArray[i].classList.add("used")
     }
-    if (newPet.START_THIRST > newPet.MAX_THIRST) {
-      return;
-    } else {
+    if (newPet.START_THIRST < newPet.MAX_THIRST) {
       newPet.START_THIRST += 20;
     }
     setTimeout(removeUsed.bind(null, THIRST_), 5000)
@@ -342,10 +345,7 @@ const feed = () => {
     for (i = 0; i < statusArray.length; i++) {
       statusArray[i].classList.add("used")
     }
-    // HUNGER_.classList.add("used")
-    if (newPet.START_HUNGER > newPet.MAX_HUNGER) {
-      return;
-    } else {
+    if (newPet.START_HUNGER < newPet.MAX_HUNGER) {
       newPet.START_HUNGER += 20;
       newPet.START_THIRST - 10
     }
@@ -360,9 +360,7 @@ const play = () => {
     for (i = 0; i < statusArray.length; i++) {
       statusArray[i].classList.add("used")
     }
-    if (newPet.HAPPINESS > newPet.MAX_HAPPINESS) {
-      return;
-    } else {
+    if (newPet.HAPPINESS < newPet.MAX_HAPPINESS) {
       newPet.HAPPINESS += 20;
       newPet.START_HUNGER -= 10;
       newPet.START_THIRST -= 10;
@@ -371,20 +369,30 @@ const play = () => {
   }
 }
 
-//go to vet
-const visitVet = () => {
-  newPet.HEALTH += 3;
-  newPet.HAPPINESS -= 20;
-  do {
-    newPet.HEALTH--;
-  } while (newPet.HEALTH > 10);
-};
+
+const vet = () => {
+  if (VET_.classList.contains("used")) {
+    return
+  } else {
+    for (i = 0; i < statusArray.length; i++) {
+      statusArray[i].classList.add("used")
+    }
+    newPet.HEALTH += 3;
+    newPet.HAPPINESS -= 20;
+    do {
+      newPet.HEALTH--;
+    } while (newPet.HEALTH > 10);
+
+
+    console.log("should remove")
+    setTimeout(removeUsed, 5000)
+  }
+}
 
 
 const life = () => {
   let timeInt = setInterval(time, 1000);
-  // let healthCheckInt = setInterval(healthCheck, )
-  // let chooseInt = setInterval(choose, 5000);
+  let healthInt = setInterval(healthCheck, 1000);
   let losingHappinessInt = setInterval(losingHappiness, 4000);
   let hungryInt = setInterval(hungry, 7000);
   let thirstInt = setInterval(thirst, 3000);
@@ -393,13 +401,15 @@ const life = () => {
   HUNGER_.classList.add(newPet.HUNGER_STATUS)
   HEALTH_.classList.add(newPet.HEALTH_STATUS)
   HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
+  VET_.classList.add(newPet.HEALTH_STATUS)
 
 
   const quitting = () => {
     if (quit) {
-      clearInterval(healthCheckInt);
+      MAIN_.classList.add("hidden")
+      GAME_OVER_.classList.remove("hidden")
+      clearInterval(healthInt)
       clearInterval(timeInt);
-      clearInterval(chooseInt);
       clearInterval(losingHappinessInt);
       clearInterval(hungryInt);
       clearInterval(thirstInt);
@@ -414,7 +424,7 @@ const life = () => {
 
 
 
-startButton.addEventListener("click", () => {
+START_BUTTON.addEventListener("click", () => {
   if (newPet && gameStart == 0) {
     TUT_.classList.add("hidden")
     MAIN_.classList.remove("hidden")

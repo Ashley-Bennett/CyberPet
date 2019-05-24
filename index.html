@@ -15,8 +15,10 @@
         <h1 class="title">Cyber Pet v2</h1>
         <p id="intro">Create a virtual pet with the options below. It is then your responsibility to care for your new
             pet by
-            feeding, playing with and giving water. If your pet gets sick you can also visit the vet.
+            feeding, playing with and giving water to. If your pet gets sick you can also visit the vet.
         </p>
+        <br>
+        <br>
         <form id="startForm" action="">
             Animal:
             <br>
@@ -24,13 +26,16 @@
             <input type="radio" name="animal" value="cat"> Cat<br>
             <input type="radio" name="animal" value="rabbit"> Rabbit
             <br>
+            <br>
+            <br>
             Name:
             <br>
-            <input id="name" type="text" name="name" value="Fluffy">
+            <br>
+            <input id="name" type="text" name="name" placeholder="Fluffy">
             <br>
             <br>
             <br>
-            <input type="submit" value="Collect Pet" onclick="start(event)">
+            <input class="button" type="submit" value="Collect Pet" onclick="start(event)">
         </form>
     </div>
     <div id="tutorialPage" class="hidden">
@@ -48,12 +53,15 @@
         <h1 class="title">Cyber Pet v2</h1>
         <!-- <p id="get_button">Get Pet</p> -->
         <!-- <p id="start_button">Start</p> -->
-        <span id="pet">Pet</span>
+        <img id="pet" class="action" src="./assets/dog/dog_green.png">
         <img id="health" src="./assets/heart.png" alt="">
         <img id="thirst" src="./assets/bottle-of-water.png" alt="">
         <img id="happiness" src="./assets/man-on-his-knees-to-cuddle-his-dog.png" alt="">
         <img id="hunger" src="./assets/pet-food.png" alt="">
         <img id="vet" src="./assets/first-aid-kit.png" alt="">
+    </div>
+    <div id="gameOver" class="hidden">
+        <h1>GAME OVER</h1>
     </div>
     <script src="./main.js"></script>
 </body>
