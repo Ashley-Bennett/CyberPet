@@ -269,7 +269,7 @@ input[type=submit] {
 .used {
     transform: translateY(100px);
     animation-name: slide;
-    animation-duration: 5.2s;
+    animation-duration: 5.1s;
     pointer-events: none;
     cursor: default !important;
 }

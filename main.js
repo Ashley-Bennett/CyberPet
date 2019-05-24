@@ -15,6 +15,8 @@
     dificulty multiplier
     colour blind mode
 */
+
+
 //overall pet class
 class pet {
   constructor(name) {
@@ -130,32 +132,26 @@ const start = (e) => {
 }
 
 
-//  Losing happiness over time
+//  Losing happiness over time. Lose 3 happiness per run. Lose 1 health per run when happiness is less than 20.
 const losingHappiness = () => {
   newPet.HAPPINESS -= 3;
   if (newPet.HAPPINESS > 80) {
     newPet.HAPPINESS_STATUS = ("green")
-    return (happinessStatus = "Your pet is happy");
   } else if (newPet.HAPPINESS <= 80 && newPet.HAPPINESS > 60) {
     newPet.HAPPINESS_STATUS = ("yellow")
-    return (happinessStatus = "Your pet is getting restless");
   } else if (newPet.HAPPINESS <= 60 && newPet.HAPPINESS > 40) {
     newPet.HAPPINESS_STATUS = ("amber")
-    return (happinessStatus = "Your pet is restless");
   } else if (newPet.HAPPINESS <= 40 && newPet.HAPPINESS > 20) {
     newPet.HAPPINESS_STATUS = ("orange")
-    return (happinessStatus = "Your pet is bored");
   } else if (newPet.HAPPINESS <= 20 && newPet.HAPPINESS > 0) {
     newPet.HAPPINESS_STATUS = ("red")
     newPet.HEALTH--;
-    return (happinessStatus = "Your pet is dying of boredom");
   } else if (newPet.HAPPINESS < 0) {
     newPet.HAPPINESS_STATUS = ("red")
     do {
       newPet.HAPPINESS++;
     } while (newPet.HAPPINESS < 0);
     newPet.HEALTH--;
-    return (happinessStatus = "Your pet is dying of boredom");
   } else {
     alert("error - happiness")
   }
@@ -340,9 +336,6 @@ const vet = () => {
     do {
       newPet.HEALTH--;
     } while (newPet.HEALTH > 10);
-
-
-    console.log("should remove")
     setTimeout(removeUsed, 5000)
   }
 }
