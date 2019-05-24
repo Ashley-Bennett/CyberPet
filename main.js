@@ -1,8 +1,5 @@
 /*
   task list:
-    pet
-      cat
-      hamster
     conatin all with classes and objects
     tidy classes and variables not used
     export functions
