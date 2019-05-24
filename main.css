@@ -82,13 +82,47 @@ input[type=submit] {
     display: none !important
 }
 
+#initialPage {
+    display: grid;
+    grid-template-columns:
+        15vw 70vw 15vw;
+    grid-template-rows:
+        40px auto;
+    grid-template-areas:
+        ". title ."
+        ". signage ."
+        ". intro ."
+        ". form ."
+        ". required ."
+}
+
+#intro {
+    grid-area: intro;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+#required {
+    grid-area: required;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#startForm {
+    grid-area: form;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 #tutorialPage {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows:
-        100px 32.5vh 32.5vh 0vh 0vh 25vh;
+        40px auto 32.5vh 32.5vh 0vh 0vh 25vh;
     grid-template-areas:
         ". . title title . ."
+        ". . signage signage . ."
         ". pet pet pet pet ."
         ". pet pet pet pet ."
         ". text text text text ."
@@ -138,46 +172,14 @@ input[type=submit] {
     margin-right: auto;
 }
 
-
-#initialPage {
-    display: grid;
-    grid-template-columns:
-        15vw 70vw 15vw;
-    grid-template-rows:
-        100px auto;
-    grid-template-areas:
-        ". title ."
-        ". intro ."
-        ". form ."
-        ". required ."
-}
-
-#intro {
-    grid-area: intro;
-    margin-right: auto;
-    margin-left: auto;
-
-}
-
-#required {
-    grid-area: required;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#startForm {
-    grid-area: form;
-    margin-right: auto;
-    margin-left: auto;
-}
-
 #gridContainer {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows:
-        100px 32.5vh 32.5vh 25vh;
+        50px auto 32.5vh 32.5vh 25vh;
     grid-template-areas:
-        ". get title title go ."
+        ". . title title . ."
+        ". . signage signage . ."
         ". pet pet pet pet ."
         ". pet pet pet pet ."
         ". hunger thirst happiness vet .";
@@ -311,6 +313,7 @@ input[type=submit] {
         100px auto;
     grid-template-areas:
         ". title ."
+        ". signage ."
         ". gameOver ."
         ". outro ."
         ". score ."
@@ -341,4 +344,18 @@ input[type=submit] {
     grid-area: newGame;
     margin-left: auto;
     margin-right: auto;
+}
+
+.signage {
+    text-align: center;
+    font-family: 'Merriweather Sans', sans-serif;
+    grid-area: signage;
+}
+
+a:link {
+    color: inherit;
+}
+
+a:visited {
+    color: inherit;
 }

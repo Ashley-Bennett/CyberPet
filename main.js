@@ -1,18 +1,17 @@
 /*
   task list:
-    game over screen - basic
     pet
       cat
-      rabbit
+      hamster
     conatin all with classes and objects
     tidy classes and variables not used
     export functions
     devMode
-    new game
     empty name
+    random placeholder names
 
   future implementations:
-    dificulty multiplier
+    mobile
     colour blind mode
 */
 
@@ -56,19 +55,21 @@ class cat extends pet {
     this.START_THIRST = 60;
     this.PET = "Cat";
     this.MAX_HAPPINESS = Math.floor(this.HAPPINESS * 1.1)
+    this.STATUS_IMG = ["./assets/cat/cat_green.png", "./assets/cat/cat_yellow.png", "./assets/cat/cat_amber.png", "./assets/cat/cat_orange.png", "./assets/cat/cat_red.png"]
   }
 }
 
-//rabbit class
-class rabbit extends pet {
+//Hamster class
+class hamster extends pet {
   constructor(name) {
     super(name);
     this.MAX_HUNGER = Math.floor(this.HUNGER * 0.7);
     this.MAX_THIRST = Math.floor(this.THIRST * 0.7);
     this.START_HUNGER = 45;
     this.START_THIRST = 45;
-    this.PET = "Rabbit";
+    this.PET = "Hamster";
     this.MAX_HAPPINESS = Math.floor(this.HAPPINESS * 0.9)
+    this.STATUS_IMG = ["./assets/hamster/hamster_green.png", "./assets/hamster/hamster_yellow.png", "./assets/hamster/hamster_amber.png", "./assets/hamster/hamster_orange.png", "./assets/hamster/hamster_red.png"]
   }
 }
 
@@ -121,8 +122,8 @@ const start = (e) => {
         return newPet = new dog(`${name}`)
       case "cat":
         return newPet = new cat(`${name}`)
-      case 'rabbit':
-        return newPet = new rabbit(`${name}`)
+      case 'hamster':
+        return newPet = new hamster(`${name}`)
       default:
         alert("error! - radio select")
     }
@@ -132,7 +133,7 @@ const start = (e) => {
 }
 
 
-//  Losing happiness over time. Lose 3 happiness per run. Lose 1 health per run when happiness is less than 20.
+//  Losing happiness every 4 seconds. Lose 3 happiness per run. Lose 1 health per run when happiness is less than 20.
 const losingHappiness = () => {
   newPet.HAPPINESS -= 3;
   if (newPet.HAPPINESS > 80) {
@@ -159,70 +160,58 @@ const losingHappiness = () => {
 
 
 
-//  Getting hungry over time
+//  Getting hungry every 7 seconds. Lose 3 hunger per run. Lose 1 health per run when hunger is less than 20.
 const hungry = () => {
   newPet.START_HUNGER -= 3;
   if (newPet.START_HUNGER > 80) {
     newPet.HUNGER_STATUS = ("green")
-    return (hungerStatus = "Your pet is full");
   } else if (newPet.START_HUNGER <= 80 && newPet.START_HUNGER > 60) {
     newPet.HUNGER_STATUS = ("yellow")
-    return (hungerStatus = "Your pet is peckish");
   } else if (newPet.START_HUNGER <= 60 && newPet.START_HUNGER > 40) {
     newPet.HUNGER_STATUS = ("amber")
-    return (hungerStatus = "Your pet is hungry");
   } else if (newPet.START_HUNGER <= 40 && newPet.START_HUNGER > 20) {
     newPet.HUNGER_STATUS = ("orange")
-    return (hungerStatus = "Your pet is starving");
   } else if (newPet.START_HUNGER <= 20 && newPet.START_HUNGER > 0) {
     newPet.HUNGER_STATUS = ("red")
     newPet.HEALTH--;
-    return (hungerStatus = "Your pet is dying of starvation");
   } else if (newPet.START_HUNGER < 0) {
     newPet.HUNGER_STATUS = ("red")
     do {
       newPet.START_HUNGER++;
     } while (newPet.START_HUNGER < 0);
     newPet.HEALTH--;
-    return (hungerStatus = "Your pet is dying of starvation");
   } else {
     alert("error - hungry")
   }
 };
 
 
-//  Getting thirsty over time
+//  Getting thirsty every 3 seconds. Lose 3 thirst per run. Lose 1 health per run when thirst is less than 20.
 const thirst = () => {
   newPet.START_THIRST -= 3;
   if (newPet.START_THIRST > 80) {
     newPet.THIRST_STATUS = ("green")
-    return (thirstStatus = "Your pet is not thirsty");
   } else if (newPet.START_THIRST <= 80 && newPet.START_THIRST > 60) {
     newPet.THIRST_STATUS = ("yellow")
-    return (thirstStatus = "Your pet is parched");
   } else if (newPet.START_THIRST <= 60 && newPet.START_THIRST > 40) {
     newPet.THIRST_STATUS = ("amber")
-    return (thirstStatus = "Your pet is thirsty");
   } else if (newPet.START_THIRST <= 40 && newPet.START_THIRST > 20) {
     newPet.THIRST_STATUS = ("orange")
-    return (thirstStatus = "Your pet is dehydrated");
   } else if (newPet.START_THIRST <= 20 && newPet.START_THIRST > 0) {
     newPet.THIRST_STATUS = ("red")
     newPet.HEALTH--;
-    return (thirstStatus = "Your pet is dying of dehydration");
   } else if (newPet.START_THIRST <= 0) {
     newPet.THIRST_STATUS = ("red")
     do {
       newPet.START_THIRST++;
     } while (newPet.START_THIRST < 0);
     newPet.HEALTH--;
-    return (thirstStatus = "Your pet is dying of dehydration");
   } else {
     alert("error - thirst")
   }
 };
 
-//  Periodically checks health. If drops below 0 then sets quit to 1.
+//  Periodically checks health every 1 second. If drops below 0 then sets quit to 1.
 const healthCheck = () => {
   if (newPet.HEALTH > 8) {
     PET_.src = newPet.STATUS_IMG[0]
@@ -246,11 +235,12 @@ const healthCheck = () => {
   }
 }
 
+//  Times every second and records how long the game has been running.
 const timer = () => {
   time++
 };
 
-//  Update status every 5 seconds
+//  Update status every 5 seconds. Checks status of each need and sets the colour to each icon accodingly.
 const update = () => {
   score += newPet.HEALTH
   for (i = 0; i < statusArray.length; i++) {
@@ -269,7 +259,7 @@ const update = () => {
 
 
 
-//  Removes "used" class
+//  Removes "used" class for each need after 5 seconds. Prevents spamming buttons.
 const removeUsed = () => {
   for (i = 0; i < statusArray.length; i++) {
     statusArray[i].classList.remove("used")
@@ -277,7 +267,7 @@ const removeUsed = () => {
 }
 
 
-
+//  Gives water to pet, increasing the thirst value by 20 if not already been used in the past 5 seconds
 const water = () => {
   if (THIRST_.classList.contains("used")) {
     return
@@ -292,6 +282,7 @@ const water = () => {
   }
 }
 
+//  Gives food to pet, increasing the hunger value by 20 if not already been used in the past 5 seconds and also decreasing the thirst value by 10
 const feed = () => {
   if (HUNGER_.classList.contains("used")) {
     return
@@ -307,6 +298,7 @@ const feed = () => {
   }
 }
 
+//  Gives happiness to pet, increasing the happiness value by 20 if not already been used in the past 5 seconds and also decreases the hunger and thirst by 10
 const play = () => {
   if (HAPPINESS_.classList.contains("used")) {
     return
@@ -323,7 +315,7 @@ const play = () => {
   }
 }
 
-
+//  Gives health to pet, increasing the health value by 5 if not already been used in the past 5 seconds and not at full health and also decreases the happiness value by 20
 const vet = () => {
   if (VET_.classList.contains("used")) {
     return
@@ -340,7 +332,7 @@ const vet = () => {
   }
 }
 
-
+//  sets all timeouts for game functions and sets base classes to each need
 const life = () => {
   let timeInt = setInterval(timer, 1000);
   let healthInt = setInterval(healthCheck, 1000);
@@ -353,7 +345,7 @@ const life = () => {
   HAPPINESS_.classList.add(newPet.HAPPINESS_STATUS)
   VET_.classList.add(newPet.HEALTH_STATUS)
 
-
+  //  clears the game intevals when quit = 1 to stop the game
   const quitting = () => {
     if (quit) {
       MAIN_.classList.add("hidden")
@@ -373,6 +365,7 @@ const life = () => {
 
 };
 
+//  resets scores and moves back to initial room
 const newGame = () => {
   GAME_OVER_.classList.add("hidden")
   INIT_.classList.remove("hidden")
@@ -400,6 +393,7 @@ START_BUTTON.addEventListener("click", () => {
     TUT_.classList.add("hidden")
     MAIN_.classList.remove("hidden")
     gameStart = 1
+    PET_.src = newPet.STATUS_IMG[0]
     life()
   } else if (!newPet) {
     alert("You need to get a pet")
